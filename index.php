@@ -218,31 +218,36 @@ $destinatario = "comercialfecor@gmail.com"; // Cambia esto a tu correo personal
 
 // Verificar si el formulario fue enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtener los datos del formulario
-    $nombre = htmlspecialchars($_POST['name']);
-    $phone = htmlspecialchars($_POST['telefono']);
-    $email = htmlspecialchars($_POST['email']);
-    $mensaje = htmlspecialchars($_POST['message']);
-    
-    // Asunto y cuerpo del correo
-    $asunto = "Nuevo mensaje del formulario de contacto";
-    $cuerpo = "Nombre: " . $nombre . "\n";
-    $cuerpo .= "Telefono: " . $phone . "\n";
-    $cuerpo .= "Correo electrónico: " . $email . "\n";
-    $cuerpo .= "Mensaje:\n" . $mensaje;
-    
-    // Enviar el correo
-    $headers = "From: " . $email . "\r\n" .
-               "Reply-To: " . $email . "\r\n" .
-               "X-Mailer: PHP/" . phpversion();
-    
-    if (mail($destinatario, $asunto, $cuerpo, $headers)) {
-        // Envío exitoso, redirigir o mostrar mensaje de éxito
-        echo "Gracias, tu mensaje ha sido enviado.";
-    } else {
-        // Error al enviar, mostrar mensaje de error
-        echo "Lo siento, hubo un problema al enviar tu mensaje.";
-    }
+  if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['message'])) {
+      // Obtener los datos del formulario
+      $nombre = htmlspecialchars($_POST['name']);
+      $telefono = htmlspecialchars($_POST['phone']);
+      $email = htmlspecialchars($_POST['email']);
+      $mensaje = htmlspecialchars($_POST['message']);
+
+      // Asunto y cuerpo del correo
+      $asunto = "Nuevo mensaje del formulario de contacto";
+      $cuerpo = "Nombre: " . $nombre . "\n";
+      $cuerpo .= "Telefono: " . $telefono . "\n";
+      $cuerpo .= "Correo electrónico: " . $email . "\n";
+      $cuerpo .= "Mensaje:\n" . $mensaje;
+
+      // Enviar el correo
+      $headers = "From: " . $email . "\r\n" .
+          "Reply-To: " . $email . "\r\n" .
+          "X-Mailer: PHP/" . phpversion();
+
+      if (mail($destinatario, $asunto, $cuerpo, $headers)) {
+          // Envío exitoso, redirigir o mostrar mensaje de éxito
+          echo "Gracias, tu mensaje ha sido enviado.";
+      } else {
+          // Error al enviar, mostrar mensaje de error
+          echo "Lo siento, hubo un problema al enviar tu mensaje.";
+      }
+  } else {
+      // Mostrar mensaje de error si campos obligatorios están vacíos
+      echo "Por favor completa todos los campos obligatorios.";
+  }
 }
 ?>
   </body>
