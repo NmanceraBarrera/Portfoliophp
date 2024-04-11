@@ -196,17 +196,33 @@
 
     // Resto del script, incluyendo el evento DOMContentLoaded
     document.addEventListener('DOMContentLoaded', function() {
-        var modal = document.getElementById('myModal');
-        var span = document.getElementsByClassName("close")[0];
+    var form = document.querySelector('form');
 
-        span.onclick = function() { 
-            modal.style.display = "none";
-        };
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Evitar que el formulario se envíe normalmente
 
-        // function myFunction() {
-        //     window.location.href = "http://localhost:/PortfolioNicolas";
-        // }
+        var formData = new FormData(form);
+
+        fetch('send.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(data => {
+            // Manejar la respuesta del servidor aquí
+            console.log(data);
+        })
+        .catch(error => {
+            // Manejar errores de red u otras excepciones aquí
+            console.error('There was a problem with the fetch operation:', error);
+        });
     });
+});
 </script>
       
 
