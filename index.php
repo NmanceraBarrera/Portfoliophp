@@ -126,28 +126,28 @@
        </section>
 
        <section class="formulario container" id="contacto">
-        <form method="post" autocomplete="off">
-            <h2>Contactame y trabajemos juntos.</h2>
-            <div class="input-group">
-                <div class="input-container">
-                    <input type="text" name="name" placeholder="Nombre y Apellido" >
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <div class="input-container">
-                    <input type="tel" name="phone" placeholder="Telefono Celular" >
-                    <i class="fa-solid fa-phone"></i>
-                </div>
-                <div class="input-container">
-                    <input type="email" name="email" placeholder="Correo" >
-                    <i class="fa-solid fa-envelope"></i>
-                </div>
-                <div class="input-container">
-                    <textarea name="message" placeholder="Dejame un mensaje" ></textarea>
-                </div>
-                <input type="submit" name="send" class="btn" onclick="myFunction()">
-                </div>
-        </form>
-       </section>
+    <form id="contact-form" method="post" autocomplete="off">
+      <h2>Contactame y trabajemos juntos.</h2>
+      <div class="input-group">
+        <div class="input-container">
+          <input type="text" name="name" placeholder="Nombre y Apellido" >
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="input-container">
+          <input type="tel" name="phone" placeholder="Telefono Celular" >
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <div class="input-container">
+          <input type="email" name="email" placeholder="Correo" >
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <div class="input-container">
+          <textarea name="message" placeholder="Dejame un mensaje" ></textarea>
+        </div>
+        <input type="submit" name="send" class="btn">
+      </div>
+    </form>
+  </section>
 
 
        <footer class="footer">
@@ -177,93 +177,67 @@
       </div>
 </div>
 
-    <script>
-    // Función para mostrar información del proyecto en el modal
-    function showProjectInfo(projectInfo) { 
-        var modal = document.getElementById('myModal');
-        var modalContent = document.getElementById('modal-text');
-        modal.style.display = "block";
-        modalContent.innerHTML = projectInfo;
-    }
-
-    // Event listener para cerrar el modal al hacer clic fuera de él
-    window.addEventListener('click', function(event) {
-        var modal = document.getElementById('myModal');
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    // Resto del script, incluyendo el evento DOMContentLoaded
+<script>
     document.addEventListener('DOMContentLoaded', function() {
-    var form = document.querySelector('form');
+      var contactForm = document.getElementById('contact-form');
 
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Evitar que el formulario se envíe normalmente
+      contactForm.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-        var formData = new FormData(form);
+        var formData = new FormData(contactForm);
 
-        fetch('send.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.text();
-            }
-            throw new Error('Network response was not ok.');
-        })
-        .then(data => {
-            // Manejar la respuesta del servidor aquí
-            console.log(data);
-        })
-        .catch(error => {
-            // Manejar errores de red u otras excepciones aquí
-            console.error('There was a problem with the fetch operation:', error);
-        });
+        var xhr = new XMLHttpRequest();
+        xhr.open(contactForm.getAttribute('method'), contactForm.getAttribute('action'), true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xhr.onload = function() {
+          if (xhr.status >= 200 && xhr.status < 400) {
+            console.log('¡Correo enviado con éxito!');
+            // Puedes agregar aquí un mensaje de éxito si lo deseas
+          } else {
+            console.error('Error al enviar el correo');
+            // Puedes agregar aquí un mensaje de error si lo deseas
+          }
+        };
+
+        xhr.send(new URLSearchParams(formData));
+      });
     });
-});
-</script>
-      
+  </script>
 
-<?php
-include('send.php');
-// Configuración del destinatario del correo
-$destinatario = "comercialfecor@gmail.com"; // Cambia esto a tu correo personal
+  <!-- PHP para enviar el correo -->
 
-// Verificar si el formulario fue enviado
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['message'])) {
-      // Obtener los datos del formulario
+  <?php
+  include('send.php');
+  // Configuración del destinatario del correo
+  $destinatario = "comercialfecor@gmail.com"; // Cambia esto a tu correo personal
+
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['message'])) {
       $nombre = htmlspecialchars($_POST['name']);
       $telefono = htmlspecialchars($_POST['phone']);
       $email = htmlspecialchars($_POST['email']);
       $mensaje = htmlspecialchars($_POST['message']);
 
-      // Asunto y cuerpo del correo
       $asunto = "Nuevo mensaje del formulario de contacto";
       $cuerpo = "Nombre: " . $nombre . "\n";
       $cuerpo .= "Telefono: " . $telefono . "\n";
       $cuerpo .= "Correo electrónico: " . $email . "\n";
       $cuerpo .= "Mensaje:\n" . $mensaje;
 
-      // Enviar el correo
       $headers = "From: " . $email . "\r\n" .
           "Reply-To: " . $email . "\r\n" .
           "X-Mailer: PHP/" . phpversion();
 
       if (mail($destinatario, $asunto, $cuerpo, $headers)) {
-          // Envío exitoso, redirigir o mostrar mensaje de éxito
-          echo "Gracias, tu mensaje ha sido enviado.";
+        echo "Gracias, tu mensaje ha sido enviado.";
       } else {
-          // Error al enviar, mostrar mensaje de error
-          echo "Lo siento, hubo un problema al enviar tu mensaje.";
+        echo "Lo siento, hubo un problema al enviar tu mensaje.";
       }
-  } else {
-      // Mostrar mensaje de error si campos obligatorios están vacíos
+    } else {
       echo "Por favor completa todos los campos obligatorios.";
+    }
   }
-}
-?>
+  ?>
   </body>
 </html>
