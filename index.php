@@ -168,43 +168,6 @@
         </div>
        </footer>
 
-       <?php 
-            include('send.php');
-       ?>
-
-<?php
-// Configuración del destinatario del correo
-$destinatario = "comercialfecor@gmail.com"; // Cambia esto a tu correo personal
-
-// Verificar si el formulario fue enviado
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtener los datos del formulario
-    $nombre = htmlspecialchars($_POST['name']);
-    $phone = htmlspecialchars($_POST['telefono']);
-    $email = htmlspecialchars($_POST['email']);
-    $mensaje = htmlspecialchars($_POST['message']);
-    
-    // Asunto y cuerpo del correo
-    $asunto = "Nuevo mensaje del formulario de contacto";
-    $cuerpo = "Nombre: " . $nombre . "\n";
-    $cuerpo .= "Telefono: " . $phone . "\n";
-    $cuerpo .= "Correo electrónico: " . $email . "\n";
-    $cuerpo .= "Mensaje:\n" . $mensaje;
-    
-    // Enviar el correo
-    $headers = "From: " . $email . "\r\n" .
-               "Reply-To: " . $email . "\r\n" .
-               "X-Mailer: PHP/" . phpversion();
-    
-    if (mail($destinatario, $asunto, $cuerpo, $headers)) {
-        // Envío exitoso, redirigir o mostrar mensaje de éxito
-        echo "Gracias, tu mensaje ha sido enviado.";
-    } else {
-        // Error al enviar, mostrar mensaje de error
-        echo "Lo siento, hubo un problema al enviar tu mensaje.";
-    }
-}
-?>
 <div id="myModal" class="modal">
     <span class="close">&times;</span>
     <!-- Cambia el texto para que se inserte dentro de este div -->
@@ -245,5 +208,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     });
 </script>
+       <?php 
+            include('send.php');
+       ?>
+
+<?php
+// Configuración del destinatario del correo
+$destinatario = "comercialfecor@gmail.com"; // Cambia esto a tu correo personal
+
+// Verificar si el formulario fue enviado
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Obtener los datos del formulario
+    $nombre = htmlspecialchars($_POST['name']);
+    $phone = htmlspecialchars($_POST['telefono']);
+    $email = htmlspecialchars($_POST['email']);
+    $mensaje = htmlspecialchars($_POST['message']);
+    
+    // Asunto y cuerpo del correo
+    $asunto = "Nuevo mensaje del formulario de contacto";
+    $cuerpo = "Nombre: " . $nombre . "\n";
+    $cuerpo .= "Telefono: " . $phone . "\n";
+    $cuerpo .= "Correo electrónico: " . $email . "\n";
+    $cuerpo .= "Mensaje:\n" . $mensaje;
+    
+    // Enviar el correo
+    $headers = "From: " . $email . "\r\n" .
+               "Reply-To: " . $email . "\r\n" .
+               "X-Mailer: PHP/" . phpversion();
+    
+    if (mail($destinatario, $asunto, $cuerpo, $headers)) {
+        // Envío exitoso, redirigir o mostrar mensaje de éxito
+        echo "Gracias, tu mensaje ha sido enviado.";
+    } else {
+        // Error al enviar, mostrar mensaje de error
+        echo "Lo siento, hubo un problema al enviar tu mensaje.";
+    }
+}
+?>
   </body>
 </html>
