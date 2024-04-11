@@ -203,9 +203,9 @@
             modal.style.display = "none";
         };
 
-        function myFunction() {
-            window.location.href = "http://localhost:/PortfolioNicolas";
-        }
+        // function myFunction() {
+        //     window.location.href = "http://localhost:/PortfolioNicolas";
+        // }
     });
 </script>
       
