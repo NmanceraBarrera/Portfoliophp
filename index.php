@@ -208,11 +208,10 @@
         }
     });
 </script>
-       <?php 
-            include('send.php');
-       ?>
+      
 
 <?php
+include('send.php');
 // Configuración del destinatario del correo
 $destinatario = "comercialfecor@gmail.com"; // Cambia esto a tu correo personal
 
