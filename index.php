@@ -44,11 +44,11 @@
               <a style="margin-left: 60px" href="./images/CV Nicolas Mancera 2024.pdf" class="btn-1" download="CV Nicolas Mancera">Descargar CV</a>
             
             
-        </div>
+            </div>
+            <div class="header-img">
+                <img src="images/3d-business-young-man-at-work-desk-and-dog.png" alt="Imagen inicio">
+            </div>
 
-        </div>
-        <div class="header-img">
-            <img src="images/3d-business-young-man-at-work-desk-and-dog.png" alt="Imagen inicio">
         </div>
       </header>
       <div class="btn-arriba">
@@ -178,6 +178,19 @@
 </div>
 
 <script>
+  function showProjectInfo(projectInfo) { 
+        var modal = document.getElementById('myModal');
+        var modalContent = document.getElementById('modal-text');
+        modal.style.display = "block";
+        modalContent.innerHTML = projectInfo;
+    }
+    // Event listener para cerrar el modal al hacer clic fuera de él
+    window.addEventListener('click', function(event) {
+        var modal = document.getElementById('myModal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
     document.addEventListener('DOMContentLoaded', function() {
       var contactForm = document.getElementById('contact-form');
 

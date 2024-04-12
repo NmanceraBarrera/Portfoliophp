@@ -488,13 +488,17 @@ textarea {
   width: 150px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 774px) {
   .menu {
     padding: 20px;
   }
 
   .menu label {
-    display: initial;
+    display: flex;
+    width: 100px;
+    left: 20px;
+    flex-direction: row;
+    justify-content: flex-end;
   }
 
   .menu .navbar {
@@ -510,6 +514,10 @@ textarea {
     width: 100%;
   }
 
+  .menu-icono {
+    width: 50%;
+  }
+
   #menu:checked ~ .navbar {
     display: initial;
   }
@@ -517,33 +525,63 @@ textarea {
   .header {
     min-height: 0vh;
     padding: 80px 30 50px 30px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header-content {
+    flex-direction: column;
   }
 
   .header-txt {
     text-align: center;
+    align-content: center;
     width: 100%;
     margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  .header-txt h1 {
+    font-size: 55px;
   }
 
   .header-img {
-    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .header img {
+    width: 50%;
+    margin: 0;
   }
 
   .header-img img {
-    width: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    width: 50%;
   }
 
   .about {
     padding: 30px;
+    display: flex;
+    flex-direction: column-reverse;
   }
 
   .about-img {
+    display: flex;
+    justify-content: center;
     width: 100%;
-    order: 2;
   }
 
   .about-img img {
-    width: 100%;
+    width: 60%;
+    margin: 0;
   }
 
   .about-txt {
@@ -594,6 +632,7 @@ textarea {
   }
 
   .footer-content {
+    display: flex;
     flex-direction: column;
     text-align: center;
   }
@@ -603,6 +642,16 @@ textarea {
   }
 
   .link ul li {
-    margin-right: 0 0 15px 0;
+    margin: 0 0 5px 0;
+  }
+
+  .modal-content {
+    height: 90vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .modal-content::-webkit-scrollbar {
+    display: none;
   }
 }
