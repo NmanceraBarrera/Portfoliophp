@@ -190,6 +190,7 @@
         if (event.target == modal) {
             modal.style.display = "none";
         }
+        
     });
     document.addEventListener('DOMContentLoaded', function() {
       var contactForm = document.getElementById('contact-form');
