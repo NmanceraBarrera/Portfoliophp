@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio</title>
@@ -45,11 +46,11 @@
             
             
             </div>
-            <div class="header-img">
-                <img src="images/3d-business-young-man-at-work-desk-and-dog.png" alt="Imagen inicio">
-            </div>
-
-        </div>
+            
+          </div>
+          <div class="header-img" style="display: flex; justify-content: center; align-items: center;" >
+              <img src="images/3d-business-young-man-at-work-desk-and-dog.png" alt="Imagen inicio">
+          </div>
       </header>
       <div class="btn-arriba">
         <a href="#header"><i class="fa-solid fa-arrow-up"></i></a>
@@ -62,7 +63,7 @@
         <div class="about-txt">
             <h2>Sobre Mi</h2>
             <hr class="linea-division-corta"/>
-            <p>"Soy un joven colombiano apasionado por el aprendizaje constante, especialmente en tecnología y programación. Me destaco en impulsar el crecimiento empresarial mediante la implementación de ideas innovadoras. Disfruto explorando nuevas tecnologías y aplicándolas en proyectos creativos. Además, encuentro equilibrio en mi vida a través de actividades como la lectura, el deporte y el tiempo con mi familia."</p>           
+            <p>"Soy un hombre de Fe, colombiano apasionado por el aprendizaje constante, especialmente en tecnología y programación. Me destaco en impulsar el crecimiento empresarial mediante la implementación de ideas innovadoras. Disfruto explorando nuevas tecnologías y aplicándolas en proyectos creativos. Además, encuentro equilibrio en mi vida a través de actividades como la lectura, el deporte y el tiempo con mi familia."</p>           
         </div>
 
 
@@ -112,12 +113,12 @@
 <div class="proyectos-1">
     <h3>Charlie</h3>
     <img src="./images/p1.png" alt="Charlie" onclick="showProjectInfo('Participe en un equipo de trabajo, encargado del desarrollo de un Marketplace de comercios que permite a cada comercio tener franquicias con productos independientes, y recibir pagos a través de Mercado Pago. Los consumidores pueden iniciar sesión con Google/Facebook o Email, y pueden ver los productos de cada franquicia mediante un QR que redirige a la interfaz correspondiente. Se permite realizar reembolsos de compras, y la conexión de Mercado Pago de la franquicia es segura a través de una conexión privada. <br> Cada franquicia puede acceder a su historial de ventas, y cada cliente puede acceder a su historial de compras.<br> Después de realizar una compra, se genera un QR de único uso para retirar el pedido. Además, fortalecí mi habilidad de trabajo en equipo para planificar y ejecutar las tareas de desarrollo de manera eficiente y efectiva.<br> <strong>Funcionalidades Destacadas:</strong><br>  - Autenticación de terceros. <br> - Cada Ecommerce optimizado para Mobile<br> - Proceso de pago seguro utilizando Mercado Pago.<br> - Funcionalidad de reembolsos de compras.<br> - Generación de QR para administración de pedidos.<br> <strong> TECNOLOGÍAS: </strong><br> <br> <strong>- Frontend </strong> : React, Redux, JavaScript, HTML, CSS. <br> <strong> - Backend: </strong> Sequelize, PostgreSQL, Express, Node.js. <br> <strong> - Herramientas: </strong> Render, Auth0, Mercado Pago, Multer, GitHub/GitFlow')">
-    <a href="https://www.youtube.com/watch?v=GCPEP9U2Oe4" >>Ver más<</a>
+    <a href="https://www.youtube.com/watch?v=GCPEP9U2Oe4" target="_blank" >>Ver más<</a>
   </div>
   <div class="proyectos-1">
     <h3>Dogs PI</h3>
     <img src="./images/dog.jpeg" alt="Rick and Morty" onclick="showProjectInfo('🌐 <strong>Proyecto Académico: </strong> <br> Participe en un proyecto SPA capaz de obtener datos de manera fluida desde una API externa. <br> <strong>✨ Logros:</strong> <br> <strong>Adaptabilidad:</strong> Garanticé que la aplicación se adaptara a diferentes dispositivos, brindando a los usuarios una experiencia consistente y fluida. <br> <strong>Presentación de Datos:</strong> Logré implementar funciones para obtener, mostrar y presentar datos de la API de forma intuitiva, creando una interfaz amigable.<br> <strong> Funcionalidad de Búsqueda:</strong> Integré potentes herramientas de búsqueda, permitiendo a los usuarios localizar eficazmente información específica dentro de la aplicación. <br> <strong> Manipulación de Datos: </strong> Incorporé filtros y opciones de clasificación, capacitando a los usuarios para interactuar con los datos según sus preferencias. <br> <strong> Atractivo Visual: </strong> Enfoqué mis esfuerzos en crear un diseño no solo funcional, sino también atractivo visualmente. <br> <br> <strong>TECNOLOGÍAS: </strong> <br> <strong>- Frontend:</strong> React, Redux, JavaScript, HTML, CSS. <br> <strong>- Backend:</strong> Sequelize, PostgreSQL, Express, Node.js.')">
-    <a href="https://dogs-pi-1.onrender.com/" >>Ver más<</a>
+    <a href="https://dogs-pi-1.onrender.com/"   target="_blank" >>Ver más<</a>
   </div>
 </div>
 
@@ -126,7 +127,7 @@
        </section>
 
        <section class="formulario container" id="contacto">
-    <form id="contact-form" method="post" autocomplete="off">
+    <form id="contact-form" method="post" autocomplete="off" action="send.php">
       <h2>Contactame y trabajemos juntos.</h2>
       <div class="input-group">
         <div class="input-container">
@@ -205,14 +206,24 @@
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         xhr.onload = function() {
-          if (xhr.status >= 200 && xhr.status < 400) {
-            console.log('¡Correo enviado con éxito!');
-            // Puedes agregar aquí un mensaje de éxito si lo deseas
-          } else {
-            console.error('Error al enviar el correo');
-            // Puedes agregar aquí un mensaje de error si lo deseas
-          }
-        };
+    if (xhr.status >= 200 && xhr.status < 400) {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: 'El mensaje ha sido enviado correctamente.'
+        });
+        // Vaciar los campos del formulario
+        contactForm.reset();
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Por favor completa todos los campos e intenta nuevamente.'
+        });
+        // Imprime la respuesta en la consola
+        console.error(xhr.responseText);
+    }
+};
 
         xhr.send(new URLSearchParams(formData));
       });
